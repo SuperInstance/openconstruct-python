@@ -1,23 +1,22 @@
-# OpenConstruct Python
+# OpenConstruct Python — Thin Client for Agent Onboarding
 
-Python thin client for OpenConstruct — an agent can use it to onboard into the SuperInstance ecosystem.
+Python client for [OpenConstruct](https://github.com/SuperInstance/OpenConstruct). Onboard agents into the SuperInstance ecosystem in under 10 lines.
 
-## Installation
+## What This Gives You
 
-```bash
-pip install openconstruct
-```
+- **5-phase onboarding** — `start()` → `declare_agent()` → `select_modules()` → `choose_interface()` → `generate_config()`
+- **Module registry** — domain-filtered catalog of available modules
+- **Pip-installable** — `pip install openconstruct`
+- **Zero runtime dependencies** — pure Python, no native extensions
 
 ## Quick Start
 
 ```python
 from openconstruct import OpenConstructClient, AgentIdentity
 
-# Create and start a client
 client = OpenConstructClient()
 client.start()
 
-# Declare your agent
 identity = AgentIdentity(
     name="my-agent",
     model="claude-4",
@@ -26,26 +25,30 @@ identity = AgentIdentity(
 )
 client.declare_agent(identity)
 
-# Browse and select modules
 modules = client.list_modules(domain="math")
 client.select_modules(["spectral-graph-core", "plato-room"])
-
-# Choose interfaces
 client.choose_interface(["cli", "api"])
 
-# Generate configuration
 config = client.generate_config()
 print(config)
 ```
 
-## Development
+## Installation
 
-Install in development mode:
+```bash
+pip install openconstruct
+```
+
+## Testing
 
 ```bash
 pip install -e ".[dev]"
 pytest
 ```
+
+## How It Fits
+
+One of the [polyglot OpenConstruct bindings](https://github.com/SuperInstance/OpenConstruct). Used by [openconstruct-jupyter](https://github.com/SuperInstance/openconstruct-jupyter) for notebook integration. See [openconstruct-examples](https://github.com/SuperInstance/openconstruct-examples) for a Python onboarding walkthrough.
 
 ## License
 
